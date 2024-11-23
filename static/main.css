@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "ArgentumSans";
+    src: url("/static/fonts/ArgentumSans-Black.ttf");
+}
+
+body {
+    background-color:rgb(80, 80, 80);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth {
+    width: 40vw;
+    height: 40vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* height: 100vh; */
+    gap: 5vw;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    -webkit-text-stroke: 4px #000000;
+    font-size: 96px;
+    font-family: "ArgentumSans";
+}

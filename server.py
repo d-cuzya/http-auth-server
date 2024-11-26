@@ -5,7 +5,6 @@ import json
 import psycopg2
 
 app = flask.Flask(__name__)
-sha256_hash = hashlib.new('sha256')
 with open('./settings.json', 'r') as file:
     settings = json.load(file)
 dbconn = psycopg2.connect(dbname=settings["database"]["dbname"], user=settings["database"]["user"], password=settings["database"]["password"], host=settings["database"]["host"])
@@ -15,15 +14,22 @@ cursor = dbconn.cursor()
 def pageMain():
   return flask.render_template('main.html')
 
-@app.route('/login',  methods=['post', "get"])
+@app.route('/login', methods=['GET'])
 def pageLogin():
-  if flask.request.method == "POST":
-    email = flask.request.form.get("email")
-    sha256_hash.update(flask.request.form.get("password").encode())
-    password = sha256_hash.hexdigest()
-    cursor.execute(f"SELECT EXISTS(SELECT email, password FROM users WHERE email='{email}' LIMIT 1)")
-    print(f"{email} {password}")
-  return flask.render_template('login.html')
+  return flask.render_template('login.html', error="")
+
+@app.route('/login', methods=['POST'])
+def postLogin():
+  print("POST")
+  email = flask.request.form.get("email")
+  sha256_hash = hashlib.sha256()
+  sha256_hash.update(flask.request.form.get("password").encode())
+  password = sha256_hash.hexdigest()
+  cursor.execute(f"SELECT EXISTS(SELECT email, password FROM users WHERE email = '{email}' AND password = '{password}' LIMIT 1);")
+  if cursor.fetchone()[0] == True:
+    return flask.redirect("/")
+  else:
+    return flask.render_template('login.html', error="Логин или пароль содержит ошибку!")
 
 @app.route('/register', methods=['GET'])
 def pageRegister():
@@ -32,6 +38,7 @@ def pageRegister():
 @app.route('/register', methods=['POST'])
 def postRegister():
   email = flask.request.form.get("email")
+  sha256_hash = hashlib.sha256()
   sha256_hash.update(flask.request.form.get("password").encode())
   password = sha256_hash.hexdigest()
   cursor.execute(f"SELECT EXISTS(SELECT email FROM users WHERE email='{email}' LIMIT 1)")

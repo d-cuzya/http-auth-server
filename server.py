@@ -9,6 +9,7 @@ with open('./settings.json', 'r') as file:
     settings = json.load(file)
 dbconn = psycopg2.connect(dbname=settings["database"]["dbname"], user=settings["database"]["user"], password=settings["database"]["password"], host=settings["database"]["host"])
 cursor = dbconn.cursor()
+app.secret_key = settings["flask"]["secret_key"]
 
 @app.route('/')
 def pageMain():

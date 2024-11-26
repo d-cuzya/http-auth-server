@@ -7,11 +7,28 @@
     <link rel="stylesheet" href="{{url_for('static', filename='auth.css')}}">
 </head>
 <body>
+    <a href="/" class="logo"> </a>
      <form action="" method="post">
         <span class="error">{{error}}</span>
         <input type="email" name="email" id="" placeholder="E-mail" required>
         <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Зарегестрироваться">
+        <input class="submitbtn" type="submit" value="Зарегистрироваться">
      </form>
+     <script>
+        const submitbtn = document.querySelectorAll('.submitbtn');
+
+        submitbtn.forEach(btn => {
+            const initialStyles = window.getComputedStyle(btn);
+            const startColor = initialStyles.backgroundColor;
+            
+            btn.addEventListener('mouseover', () => {
+                btn.style.backgroundColor = '#3B3B3BFF';
+            });
+
+            btn.addEventListener('mouseout', () => {
+                btn.style.backgroundColor = startColor;
+            });
+        });
+    </script>
 </body>
 </html>

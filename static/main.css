@@ -29,3 +29,12 @@ a {
     font-size: 96px;
     font-family: "ArgentumSans";
 }
+
+.logo {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+    top: 40px;
+    left: 40px;
+}

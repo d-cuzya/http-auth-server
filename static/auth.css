@@ -29,11 +29,20 @@ input {
     text-align: center;
     font-size: 40px;
 }
-.btnlogin {
+.submitbtn {
+    color: #fff;
     background-color: black;
-    color: white;
 }
 
 .error {
     color: red;
+}
+
+.logo {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+    top: 40px;
+    left: 40px;
 }

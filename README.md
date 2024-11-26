@@ -16,3 +16,4 @@ ___
 + Access to some publications only by link
 + I am creating my own markdown editor on the site (therefore, the posts will be stored in markdown format)
 + Improve the architecture of the project
++ Improve html, css and js
